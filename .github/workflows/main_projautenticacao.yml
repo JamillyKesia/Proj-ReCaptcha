@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'projAutenticacao'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BD9F6F3FF150461EB1357D1C7A2A8CE2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6F441E547A104492AB7E37A1F4462BFC }}
           package: .
