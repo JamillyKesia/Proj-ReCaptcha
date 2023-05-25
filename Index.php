@@ -27,7 +27,11 @@
             </label><br>
             <div class="g-recaptcha" data-sitekey="6Ld8Mz0mAAAAAO3Oa5rrYUtCM2KKPZO3OD1G052B"></div>
             <input type="submit" value="Entrar" name="Entrar" onclick="return valida()">
-
+            <section class="sessaoDados">
+                Login Correto: <strong>UserTest</strong>
+                <br>
+                Senha Correta: <strong>senha123</strong>
+            </section>
         </form>
     </section>
 </body>
@@ -44,32 +48,51 @@
 
     <?php
 
-        //Verificação da ação do botão "entrar"
-        if (isset($_POST['Entrar'])){
-            //Se caso for clicado, ele verificará se há um código inserido no captcha
-        if (!empty($_POST['g-recaptcha-response'])){
-            $url = "https://www.google.com/recaptcha/api/siteverify";
-            $secret = "6Ld8Mz0mAAAAALsVs_L54ZovMV2jWRvJ2ucW8-OP";
-            $response = $_POST['g-recaptcha-response'];
-            $variaveis = "secret=".$secret."&response=".$response;
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Dados inseridos no formulário
+            $emailInserido = $_POST["email"];
+            $senhaInserida = $_POST["senha"];
+            $loginInserido = $_POST["login"];
+        
+            // Email e senha já definidos
+            $loginCorreto = "UserTest";
+            $senhaCorreta = "senha123";
+        
+            // Verifica se o email e a senha estão corretos
+            if ($loginInserido == $loginCorreto && $senhaInserida == $senhaCorreta) {
+  
+                //Verificação da ação do botão "entrar"
+                if (isset($_POST['Entrar'])){
+                    //Se caso for clicado, ele verificará se há um código inserido no captcha
+                if (!empty($_POST['g-recaptcha-response'])){
+                    $url = "https://www.google.com/recaptcha/api/siteverify";
+                    $secret = "6Ld8Mz0mAAAAALsVs_L54ZovMV2jWRvJ2ucW8-OP";
+                    $response = $_POST['g-recaptcha-response'];
+                    $variaveis = "secret=".$secret."&response=".$response;
 
-            //Passos de verificação no servidor
-            $ch = curl_init($url);
-            curl_setopt( $ch, CURLOPT_POST, 1);
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, $variaveis);
-            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt( $ch, CURLOPT_HEADER, 0);
-            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-            $resposta = curl_exec($ch);
-            
-            //Verifica se a válidação e o recebimento do código são True 
-            $resultado = json_decode($resposta);
-            if ($resultado -> success == 1) {
-                echo '<meta http-equiv="refresh" content="0;URL=\'codig-valido.html\'" />';     //Se for verdadeira, será redirecionado até a página de validação
+                    //Passos de verificação no servidor
+                    $ch = curl_init($url);
+                    curl_setopt( $ch, CURLOPT_POST, 1);
+                    curl_setopt( $ch, CURLOPT_POSTFIELDS, $variaveis);
+                    curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+                    curl_setopt( $ch, CURLOPT_HEADER, 0);
+                    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+                    $resposta = curl_exec($ch);
+                    
+                    //Verifica se a válidação e o recebimento do código são True 
+                    $resultado = json_decode($resposta);
+                    if ($resultado -> success == 1) {
+                        echo '<meta http-equiv="refresh" content="0;URL=\'codig-valido.html\'" />';     //Se for verdadeira, será redirecionado até a página de validação
+                    }
+
+                }
             }
-
-        }   
-}
+              
+        }
+        else{
+            echo "Login e senha não corretos";
+        }
+    }
 
     ?>
 
