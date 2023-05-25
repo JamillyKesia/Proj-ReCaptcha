@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/style.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <title>Document</title>
+    <title>Uvão 🍇</title>
 </head>
 
 <body>
@@ -25,19 +25,53 @@
             <label for="senha">
                 <input type="password" id="senha" name="senha" class="inputForm" placeholder="Senha" required>
             </label><br>
-            <div class="g-recaptcha" data-sitekey="6LfLzx4mAAAAAGaA-zwo0t9ae-GXTKhAKu2ZdWfG"></div>
-            <input type="submit" value="Entrar">
+            <div class="g-recaptcha" data-sitekey="6Ld8Mz0mAAAAAO3Oa5rrYUtCM2KKPZO3OD1G052B"></div>
+            <input type="submit" value="Entrar" name="Entrar" onclick="return valida()">
 
         </form>
     </section>
 </body>
 
+    <!-- Validação de marcação do recaptcha-->
+    <script type="text/javascript">
+        function valida() {
+            if (grecaptcha.getResponse() == ""){
+                alert("Você precisa marcar a validação!");
+                return false;
+            }
+        }
+    </script>
+
+    <?php
+
+        //Verificação da ação do botão "entrar"
+        if (isset($_POST['Entrar'])){
+            //Se caso for clicado, ele verificará se há um código inserido no captcha
+        if (!empty($_POST['g-recaptcha-response'])){
+            $url = "https://www.google.com/recaptcha/api/siteverify";
+            $secret = "6Ld8Mz0mAAAAALsVs_L54ZovMV2jWRvJ2ucW8-OP";
+            $response = $_POST['g-recaptcha-response'];
+            $variaveis = "secret=".$secret."&response=".$response;
+
+            //Passos de verificação no servidor
+            $ch = curl_init($url);
+            curl_setopt( $ch, CURLOPT_POST, 1);
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $variaveis);
+            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt( $ch, CURLOPT_HEADER, 0);
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+            $resposta = curl_exec($ch);
+            
+            //Verifica se a válidação e o recebimento do código são True 
+            $resultado = json_decode($resposta);
+            if ($resultado -> success == 1) {
+                echo '<meta http-equiv="refresh" content="0;URL=\'codig-valido.html\'" />';     //Se for verdadeira, será redirecionado até a página de validação
+            }
+
+        }   
+}
+
+    ?>
+
+
 </html>
-
-<?php
-
-
-
-
-
-?>
