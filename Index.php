@@ -87,10 +87,10 @@
 
                     }
                 } 
-            }
-        } else {echo '<script language="javascript" type="text/javascript">
-            alert("LOGIN E SENHA ERRADO!");
-            </script>';}
+            } else {echo '<script language="javascript" type="text/javascript">
+                alert("LOGIN E SENHA ERRADO!");
+                </script>';}
+        } 
 
     ?>
 
