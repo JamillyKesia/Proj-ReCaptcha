@@ -86,11 +86,8 @@
                     }
 
                 }
-            }
-              
-        }
-        else{
-            alert("LOGIN OU SENHA INCORRETOS!");
+            } 
+            else {alert("LOGIN OU SENHA INCORRETOS!");} 
         }
     }
 
