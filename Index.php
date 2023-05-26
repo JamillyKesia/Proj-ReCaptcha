@@ -83,14 +83,14 @@
                     $resultado = json_decode($resposta);
                     if ($resultado -> success == 1) {
                         echo '<meta http-equiv="refresh" content="0;URL=\'codig-valido.html\'" />';     //Se for verdadeira, será redirecionado até a página de validação
-                    }
+                        }
 
-                }
-            } else {echo '<script language="javascript" type="text/javascript">
-                alert("LOGIN E SENHA ERRADO!");
-                </script>';} 
-        }  
-    }
+                    }
+                } 
+            }
+        } else {echo '<script language="javascript" type="text/javascript">
+            alert("LOGIN E SENHA ERRADO!");
+            </script>';}
 
     ?>
 
