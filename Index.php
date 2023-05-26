@@ -90,7 +90,7 @@
               
         }
         else{
-            echo "Login e senha não corretos";
+            alert("LOGIN OU SENHA INCORRETOS!");
         }
     }
 
