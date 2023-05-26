@@ -87,7 +87,9 @@
 
                 }
             } 
-        } else {alert("LOGIN OU SENHA INCORRETOS!");} 
+        } else {echo '<script language="javascript" type="text/javascript">
+            alert("LOGIN E SENHA ERRADO!");
+            </script>';} 
     }
 
     ?>
